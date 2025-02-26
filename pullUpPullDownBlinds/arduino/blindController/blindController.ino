@@ -9,7 +9,7 @@
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-  Serial.begin(119200);
+  Serial.begin(19200);
   // Wait for serial port to connect (optional, mostly for boards like Leonardo)
   while (!Serial) {
     ; // Do nothing until serial connection is established
@@ -41,7 +41,7 @@ unsigned long turnTime = 0;
 // the loop function runs over and over again forever
 void loop() {
   ledAccu++;
-  if (ledAccu>1000) {
+  if (ledAccu>20000) {
     ledAccu = 0;
     digitalWrite(LED_BUILTIN, ledState);
     if (ledState == LOW) ledState = HIGH; else ledState = LOW;
@@ -86,7 +86,7 @@ void receiveData(int bytecount)
      // Shift existing result left 8 bits and add new byte
      turnTime = (turnTime << 8) | Wire.read();        
   }
-  Serial.print("Doing " + String(cmd)+" who="+String(who)+" turnTime="+String(turnTime));
+  Serial.print("Doing " + String(cmd)+" who="+String(who)+" turnTime="+String(turnTime)+"\n");
   turnTime = millis()+turnTime;
 }
 
